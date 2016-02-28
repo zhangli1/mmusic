@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="js/jquery-1.8.2.min.js"></script>
+	</head>
+	<style>
+		@font-face {
+			font-family: 'icomoon';
+			src:url('fonts/icomoon.eot');
+			src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+				url('fonts/icomoon.woff') format('woff'),
+				url('fonts/icomoon.ttf') format('truetype'),
+				url('fonts/icomoon.svg#icomoon') format('svg');
+			font-weight: normal;
+			font-style: normal;
+		}	
+
+		.play-ui {
+			border:1px solid red;
+		}
+
+		.play-ui .music-name {
+			border:1px solid blue;
+			height:15px;
+				
+		}
+		.play-ui .music-process {
+			background:black;
+			padding:5px;
+		}
+		.play-ui .music-process a {
+			font-family:'icomoon';
+			color: rgb(220,220,220);
+			cursor: pointer;
+			margin-left: 15px;
+			font-size: 12px;
+			width: 15px;
+			display:inline-block;
+		}
+
+	</style>
+	<body>
+	<audio controls>
+  <source  src="http://7ktwe7.com1.z0.glb.clouddn.com/%E7%88%B1%E6%8B%BC%E6%89%8D%E4%BC%9A%E8%B5%A2.mp3" type="audio/mpeg">
+  <source  src="http://7ktwe7.com1.z0.glb.clouddn.com/01.mp3" type="audio/mpeg">
+  <embed height="50" width="100" src="http://7ktwe7.com1.z0.glb.clouddn.com/%E6%97%B6%E9%97%B4%E9%83%BD%E5%8E%BB%E5%93%AA%E5%84%BF%E4%BA%86%20-%20%E7%8E%8B%E9%93%AE%E4%BA%AE.mp3">
+</audio>
+
+	<!-- 播放器界面 -->
+	<div class="play-ui">
+		<div class="music-name"></div>
+		<div class="music-process">
+			<a class="prev-btn">e</a>
+			<a class="play-btn">c</a>
+			<a class="next-btn">d</a>
+		</div>
+	</div>
+
+	</body>
+	<script>
+	//歌曲列表
+	var index = 1;
+	var arr = ['http://7ktwe7.com1.z0.glb.clouddn.com/01.mp3', 'http://7ktwe7.com1.z0.glb.clouddn.com/%E7%88%B1%E6%8B%BC%E6%89%8D%E4%BC%9A%E8%B5%A2.mp3', 'http://7ktwe7.com1.z0.glb.clouddn.com/%E6%97%B6%E9%97%B4%E9%83%BD%E5%8E%BB%E5%93%AA%E5%84%BF%E4%BA%86%20-%20%E7%8E%8B%E9%93%AE%E4%BA%AE.mp3'];
+	var source = document.getElementsByTagName('source');
+	var embed = document.getElementsByTagName('embed');
+	var audio = document.getElementsByTagName('audio')[0];
+	audio.autoplay = true;
+	//audio.loop = "loop";
+	console.log(audio);
+	var id = setInterval(function(){
+		if(audio.paused == false) 
+			$('.play-btn').html('h');
+		else
+			$('.play-btn').html('c');
+
+		if(audio.ended == true) {
+			if(index + 1 > 2) index = 2;
+			else index += 1;
+			audio.src = arr[index];
+			//audio.load();
+			audio.play();
+			//clearInterval(id);
+		}
+	}, 100)
+	// 播放
+	//audio.autoplay = true;
+	// 暫停
+	//audio.pause();
+
+	
+	// 播放/ 暂停
+	$('.play-btn').bind('click', function(){
+		if(audio.paused == false) {
+			$(this).html('h');
+			audio.pause();
+		}else{
+			$(this).html('c');
+			audio.play();
+		}
+	});
+
+	// 上一曲
+	$('.prev-btn').bind('click', function(){
+		if(index -1 < 0) index = 0;
+		else index -= 1;
+		audio.src = arr[index];
+		audio.play();
+		console.log(index);
+	});
+	
+	// 下一曲
+	$('.next-btn').bind('click', function(){
+		if(index + 1 > 2) index = 2;
+		else index += 1;
+		audio.src = arr[index];
+		audio.play();
+		console.log(index);
+	});
+	</script>
+</html>
