@@ -14,6 +14,7 @@
 			font-weight: normal;
 			font-style: normal;
 		}	
+		* {margin:0;padding:0;}
 
 		.play-ui {
 			border:1px solid red;
@@ -38,6 +39,42 @@
 			display:inline-block;
 		}
 
+		.progress-bar {
+			border:1px solid yellow;
+			position:relative;
+			width:60%;
+		}
+		.progress-bar .progress-line {
+			margin-top:2px;
+			border:1px solid blue;
+			border-radius:5px;
+			height:10px;
+		}
+
+		.progress-bar .progress-line .scroll-body {
+			width:0%;
+			background:red;
+			height:100%;
+			border-radius:5px;
+			display:inline-block;
+			vertical-align:top;
+		}
+
+		.progress-bar .scroll-top {
+			width:3%;
+			background:blue;
+			height:15px;
+			border-radius:8px;
+			display:inline-block;
+			vertical-align:top;
+			position:absolute;
+			top:0;
+			z-index:999;
+		}
+	
+		.music-process, .progress-bar {
+			display:inline-block;
+		}
 	</style>
 	<body>
 	<audio controls>
@@ -54,7 +91,15 @@
 			<a class="play-btn">c</a>
 			<a class="next-btn">d</a>
 		</div>
+		<!-- 进度条 -->
+		<div class="progress-bar">
+			<div class="progress-line">
+				<div class="scroll-body"></div>
+			</div>
+			<div class="scroll-top"></div>
+		</div>
 	</div>
+
 
 	</body>
 	<script>
@@ -82,10 +127,51 @@
 			//clearInterval(id);
 		}
 	}, 100)
-	// 播放
-	//audio.autoplay = true;
-	// 暫停
-	//audio.pause();
+
+
+	// 进度条控制 
+	bar();
+	function bar(){
+		bar_id = setInterval(function(){
+			var t = audio.currentTime / audio.duration;
+			if(t > 0.97){
+				t = 0.97;
+			}	
+			$('.scroll-body').css('width', (t * 100 + 1) + '%');
+			$('.scroll-top').css('left', t * 100  + '%');
+		}, 100)	
+	}
+
+
+	// 按下鼠标拖动滑块
+	$('.scroll-top').bind('mousedown', function(){
+		clearInterval(bar_id);
+		audio.pause();
+		$(document).bind('mousemove', function(e){
+			var x = e.pageX;
+			var distance = x - $('.progress-line').offset().left;
+			var maxWidth = $('.progress-line').offset().left + parseInt($('.progress-bar').css('width')) - parseInt($('.scroll-top').css('width')) - 110;
+				
+			if(distance > maxWidth){
+				distance = maxWidth;
+			}
+			console.log('pageX: ' + x);
+			console.log(distance + '||' + maxWidth);
+			$('.scroll-top').css('left', distance - 5);
+			$('.scroll-body').css('width', distance);
+
+			$(document).bind('mouseup', function(){
+				$(document).unbind('mousemove');
+				audio.currentTime =  audio.duration * (x / 1000);
+				audio.play();
+				clearInterval(bar_id);
+				bar();
+				return false;
+			})
+		});
+			
+	})
+
 
 	
 	// 播放/ 暂停
