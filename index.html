@@ -8,28 +8,56 @@
 			font-family: 'icomoon';
 			src:url('fonts/icomoon.eot');
 			src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
-				url('fonts/icomoon.woff') format('woff'),
-				url('fonts/icomoon.ttf') format('truetype'),
-				url('fonts/icomoon.svg#icomoon') format('svg');
+			    url('fonts/icomoon.woff') format('woff'),
+			    url('fonts/icomoon.ttf') format('truetype'),
+			    url('fonts/icomoon.svg#icomoon') format('svg');
 			font-weight: normal;
 			font-style: normal;
 		}	
 		* {margin:0;padding:0;}
 
+		body {
+			background:#D9E5F1;
+		}
+
 		.play-ui {
 			border:1px solid red;
 		}
+		.play-ui .music-icon {
+			width:130px;
+			height:130px;
+			border:1px solid green;
+			display:inline-block;
+			margin:10px;
+		}
+
+		.play-ui .music-info {
+			width:300px;
+			height:130px;
+			border:1px solid black;
+			display:inline-block;
+			vertical-align:top;
+			background:#333333;
+			margin:10px;	
+		}
 
 		.play-ui .music-name {
-			border:1px solid blue;
 			height:15px;
+			color:white;
+			font-weight:bold;
+			font-size:12px;
+			padding:10px;
 				
 		}
-		.play-ui .music-process {
-			background:black;
-			padding:5px;
+		.play-ui .music-info .music-process {
+			width:100%;
+			padding: 5px 0;
+			float:left;
+			margin-top:3px;
+
+
 		}
-		.play-ui .music-process a {
+		.play-ui .music-info .music-process a {
 			font-family:'icomoon';
 			color: rgb(220,220,220);
 			cursor: pointer;
@@ -39,31 +67,48 @@
 			display:inline-block;
 		}
 
-		.progress-bar {
-			border:1px solid yellow;
-			position:relative;
-			width:60%;
-		}
-		.progress-bar .progress-line {
-			margin-top:2px;
-			border:1px solid blue;
-			border-radius:5px;
-			height:10px;
+		.play-ui .music-process .volume  {
+			float:right;
+			margin-right:10px;
 		}
 
-		.progress-bar .progress-line .scroll-body {
+		.play-ui .music-process .volume .volume-btn {
+			margin-top:5px;
+			margin-right:5px;
+		}
+
+		.play-ui .music-process .volume #prog {
+			width:50px;
+			float:right;
+		}
+
+		.play-ui .music-info .progress-bar {
+			position:relative;
+			width:91%;
+			margin:5px 7px 0 15px;
+
+		}
+		.play-ui .music-info .progress-bar .progress-line {
+			margin-top:2px;
+			border:1px solid black;
+			border-radius:5px;
+			height:5px;
+			width:100%;
+		}
+
+		.play-ui .music-info .progress-bar .progress-line .scroll-body {
 			width:0%;
-			background:red;
+			background:white;
 			height:100%;
 			border-radius:5px;
 			display:inline-block;
 			vertical-align:top;
 		}
 
-		.progress-bar .scroll-top {
+		.play-ui .music-info .progress-bar .scroll-top {
 			width:3%;
 			background:blue;
-			height:15px;
+			height:10px;
 			border-radius:8px;
 			display:inline-block;
 			vertical-align:top;
@@ -71,9 +116,36 @@
 			top:0;
 			z-index:999;
 		}
+		.play-ui .music-process .prog-top {
+			height:5px;
+			border:1px solid black;
+			display: inline-block;
+    			margin-bottom: 2px;
+    			width: 50px;
+			border-radius:5px;
+		}
+		.play-ui .music-process .prog-top .volume-progress-line {
+			height:100%;		
+			background:white;
+			border-radius:5px;
+		}
+
+		.play-ui .music-process .prog-top .volume-scroll-top {
+			width:5%;
+		    	background:blue;
+		    	height:130%;
+		    	position:relative;
+		    	top:-6px;
+		}
 	
-		.music-process, .progress-bar {
+		.play-ui .music-info .music-process, .progress-bar {
 			display:inline-block;
+		}
+
+		.play-ui .music-info .time-line {
+		    	font-size: 10px;
+		    	color: white;
+		    	margin-left: 15px;
 		}
 	</style>
 	<body>
@@ -85,18 +157,32 @@
 
 	<!-- 播放器界面 -->
 	<div class="play-ui">
-		<div class="music-name"></div>
-		<div class="music-process">
-			<a class="prev-btn">e</a>
-			<a class="play-btn">c</a>
-			<a class="next-btn">d</a>
-		</div>
-		<!-- 进度条 -->
-		<div class="progress-bar">
-			<div class="progress-line">
-				<div class="scroll-body"></div>
+		<div class="music-icon"></div>
+		<div class="music-info">
+			<div class="music-name">当努力成为一种习惯</div>
+			<div class="music-process">
+				<a class="prev-btn">g</a>
+				<a class="play-btn">c</a>
+				<a class="next-btn">f</a>
+				<div class="volume">
+					<a class="volume-btn">b</a>
+					<!-- 音量进度条 -->
+					<div class="prog-top">
+						<div class="volume-progress-line">
+							<div class="volume-scroll-body"></div>
+						</div>
+						<div class="volume-scroll-top"></div>
+					</div>
+				</div>
 			</div>
-			<div class="scroll-top"></div>
+			<!-- 进度条 -->
+			<div class="progress-bar">
+				<div class="progress-line">
+					<div class="scroll-body"></div>
+				</div>
+				<div class="scroll-top"></div>
+			</div>
+			<div class="time-line">00:00</div>
 		</div>
 	</div>
 
@@ -105,7 +191,7 @@
 	<script>
 	//歌曲列表
 	var index = 1;
-	var arr = ['http://7ktwe7.com1.z0.glb.clouddn.com/01.mp3', 'http://7ktwe7.com1.z0.glb.clouddn.com/%E7%88%B1%E6%8B%BC%E6%89%8D%E4%BC%9A%E8%B5%A2.mp3', 'http://7ktwe7.com1.z0.glb.clouddn.com/%E6%97%B6%E9%97%B4%E9%83%BD%E5%8E%BB%E5%93%AA%E5%84%BF%E4%BA%86%20-%20%E7%8E%8B%E9%93%AE%E4%BA%AE.mp3'];
+	var arr = ['http://7ktwe7.com1.z0.glb.clouddn.com/01.mp3', 'http://7ktwe7.com1.z0.glb.clouddn.com/%E7%88%B1%E6%8B%BC%E6%89%8D%E4%BC%9A%E8%B5%A2.mp3', 'http://7ktwe7.com1.z0.glb.clouddn.com/%E6%97%B6%E9%97%B4%E9%83%BD%E5%8E%BB%E5%93%AA%E5%84%BF%E4%BA%86%20-%20%E7%8E%8B%E9%93%AE%E4%BA%AE.mp3', 'http://7ktwe7.com1.z0.glb.clouddn.com/%E5%A4%A7%E7%8E%8B%E5%8F%AB%E6%88%91%E6%9D%A5%E5%B7%A1%E5%B1%B1.mp3', 'http://7ktwe7.com1.z0.glb.clouddn.com/%E5%8D%8A%E5%A3%B6%E7%BA%B1.mp3'];
 	var source = document.getElementsByTagName('source');
 	var embed = document.getElementsByTagName('embed');
 	var audio = document.getElementsByTagName('audio')[0];
@@ -119,7 +205,8 @@
 			$('.play-btn').html('c');
 
 		if(audio.ended == true) {
-			if(index + 1 > 2) index = 2;
+			max = arr.length - 1;
+			if(index + 1 > max) index = max;
 			else index += 1;
 			audio.src = arr[index];
 			//audio.load();
@@ -128,22 +215,77 @@
 		}
 	}, 100)
 
+	// 播放时间以分钟、秒显示 
+	setInterval(function(){
+		var seconds = parseInt(parseInt(audio.currentTime) % 60);
+		if(seconds < 9){
+			seconds = '0' + seconds;
+		}
+
+		var minutes = parseInt(parseInt(audio.currentTime) / 60);
+		if(minutes < 9){
+			minutes = '0' + minutes;
+		}
+		var currentTime = minutes+ ' : ' + seconds;
+		$('.time-line').html(currentTime);
+	}, 100)
+
+	// 默认音量
+	maxVolume = 1;	
+	
+	audio.volume = 0.5;
+	$('.volume-progress-line').css('width', 0.5 * 100 + '%');
+	$('.volume-scroll-top').css('margin-left', 0.5 * 100 + '%');
+
+
+	// 按下鼠标拖动滑块(音量进度条)
+	$('.volume-scroll-top').bind('mousedown', function(){
+		$(document).bind('mousemove', function(e){
+			var x = e.pageX;
+			var distance = x - $('.volume-progress-line').offset().left;
+			var maxWidth = parseInt($('.prog-top').css('width')) - parseInt($('.volume-scroll-top').css('width')) + 3;
+				
+			if(distance > maxWidth){
+				distance = maxWidth;
+			}
+			if(distance < 2){
+				distance = 2;
+			}
+			$('.volume-scroll-top').css('left', distance - 27);
+			$('.volume-progress-line').css('width', distance);
+
+			audio.volume =  1 * (parseInt($('.volume-progress-line').css('width')) / parseInt($('.prog-top').css('width')));
+			$(document).bind('mouseup', function(){
+				$(document).unbind('mousemove');
+				$(document).unbind('mouseup');
+				return false;
+			})
+		});
+			
+	})
+
+	
+
 
 	// 进度条控制 
-	bar();
-	function bar(){
+	bar(-1);
+	function bar(currentProgress){
 		bar_id = setInterval(function(){
-			var t = audio.currentTime / audio.duration;
+			if(currentProgress == -1)
+				var t = audio.currentTime / audio.duration;
+			else
+				var t = currentProgress;
 			if(t > 0.97){
 				t = 0.97;
 			}	
 			$('.scroll-body').css('width', (t * 100 + 1) + '%');
 			$('.scroll-top').css('left', t * 100  + '%');
+			currentProgress = -1;
 		}, 100)	
 	}
 
 
-	// 按下鼠标拖动滑块
+	// 按下鼠标拖动滑块(播放进度条)
 	$('.scroll-top').bind('mousedown', function(){
 		clearInterval(bar_id);
 		audio.pause();
@@ -151,25 +293,37 @@
 			var x = e.pageX;
 			var distance = x - $('.progress-line').offset().left;
 			var maxWidth = $('.progress-line').offset().left + parseInt($('.progress-bar').css('width')) - parseInt($('.scroll-top').css('width')) - 110;
+			console.log(x + '||' + maxWidth);
 				
 			if(distance > maxWidth){
 				distance = maxWidth;
 			}
-			console.log('pageX: ' + x);
-			console.log(distance + '||' + maxWidth);
 			$('.scroll-top').css('left', distance - 5);
 			$('.scroll-body').css('width', distance);
 
 			$(document).bind('mouseup', function(){
 				$(document).unbind('mousemove');
-				audio.currentTime =  audio.duration * (x / 1000);
+				audio.currentTime =  audio.duration * (parseInt($('.scroll-top').css('left')) / parseInt($('.progress-line').css('width')));
 				audio.play();
 				clearInterval(bar_id);
-				bar();
+				$(document).unbind('mouseup');
+				bar(audio.currentTime / audio.duration);
 				return false;
 			})
 		});
 			
+	})
+
+	// 静音 
+	$('.volume-btn').bind('click', function(){
+		if(audio.muted == false) {
+			$(this).html('a');
+			audio.muted = true;
+		}else{
+			$(this).html('b');
+			audio.muted = false;
+		}
+
 	})
 
 
@@ -196,7 +350,8 @@
 	
 	// 下一曲
 	$('.next-btn').bind('click', function(){
-		if(index + 1 > 2) index = 2;
+		max = arr.length - 1;
+		if(index + 1 > max) index = max;
 		else index += 1;
 		audio.src = arr[index];
 		audio.play();
